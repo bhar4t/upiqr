@@ -7,12 +7,12 @@ This package will work on client and server.
 
   UPI
   .generateQR({
-    vpa: 'name@bank',
-    pn: "John Doe"
+    vpa: 'john@upi',
+    pn: "JOHN DOE"
   })
   .then((upi) => {
     console.log(upi.qr);      // Base64 URL
-    console.log(upi.intent);  // upi://pay?pa=john@bank&pn=JOHN DOE
+    console.log(upi.intent);  // upi://pay?pa=john@upi&pn=JOHN DOE
   })
   .catch(err => {
     console.log(err);

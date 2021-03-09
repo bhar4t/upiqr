@@ -3,7 +3,7 @@ Generate NPCI's UPI QR code (BASE64) along with UPI intent link, , By using it a
 This package will work on client and server.
 
 ```js
-const QR =  require('upiqr');
+const UPI =  require('upiqr');
 
 
 UPI

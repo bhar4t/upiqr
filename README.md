@@ -37,6 +37,7 @@ This package will work on client and server.
 | currency            | Currency of amount                                         | INR      | Optional  | cu
 | transactionRefUrl   | URL for the order                                          |          | Optional  | url
 
+
 In table, fields requirement column is based on static QR, For dynamic QR you need to change more fields along with `payeeVPA` and `payeeName`.
 
 For a complete list of supported fields, refer to the [NPCI UPI Linking Specs](https://www.npci.org.in/PDF/npci/upi/circular/2017/Circular18_BankCompliances_to_enbaleUPIMerchantecosystem_0.pdf)

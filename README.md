@@ -1,4 +1,4 @@
-Generate NPCI's UPI QR code (BASE64) along with UPI intent link, , By using it any payment is possible from UPI enabled apps.
+Generate NPCI's UPI QR code (BASE64) along with UPI intent link, By using it any payment is possible from UPI enabled apps.
 
 This package will work on client and server.
 

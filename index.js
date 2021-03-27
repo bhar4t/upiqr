@@ -18,28 +18,24 @@ function buildUrl(url, parameters) {
     if (qs.length > 0) url = url + qs;
     return url;
   }
-  
-class UPI {
-    constructor() {
-        if (this.upi) return this.upi;
-        this.upi = this;
-    }
-    generate = ({
-        payeeVPA: pa,
-        payeeName: pn,
-        payeeMerchantCode: me,
-        transactionId: tid,
-        transactionRef: tr,
-        transactionNote: tn,
-        amount: am,
-        minimumAmount: mam,
-        currency: cu,
-        transactionRefUrl: url,
-    }) => new Promise((resolve, reject) => {
+
+  export default function upiqr ({
+    payeeVPA: pa,
+    payeeName: pn,
+    payeeMerchantCode: me,
+    transactionId: tid,
+    transactionRef: tr,
+    transactionNote: tn,
+    amount: am,
+    minimumAmount: mam,
+    currency: cu,
+    transactionRefUrl: url,
+}) {
+    return new Promise((resolve, reject) => {
 
         let error = validateParams({ pa, pn });
         if (error) reject(new Error(error));
-
+    
         let intent = "upi://pay?";
         if (pa) intent = buildUrl(intent, { pa, pn });
         if (am) intent = buildUrl(intent, { am });
@@ -60,5 +56,3 @@ class UPI {
         );
     })
 }
-
-module.exports = new UPI();

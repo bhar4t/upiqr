@@ -4,10 +4,9 @@ This package will work on client and server.
 
 ```js
 
-  const upiqr =  require('upiqr');
+  import upiqr from 'upiqr';
 
-  upiqr
-  .generate({
+  upiqr({
     payeeVPA: 'john@upi',
     payeeName: "JOHN DOE"
   })

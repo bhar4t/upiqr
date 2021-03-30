@@ -1,9 +1,10 @@
 const QRCode = require("qrcode")
 
 function validateParams({ pa, pn }) {
-    if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
-    if (pa?.length < 5 || pn?.length < 4) return "Virtual Payee's Address/Payee's Name is too short."   
-    return false
+    let error = false
+    if (!pa || !pn) error = "Virtual Payee's Address/Payee's Name is compulsory"
+    if (pa?.length < 5 || pn?.length < 4) error = "Virtual Payee's Address/Payee's Name is too short."   
+    return error
 }
 
 function buildUrl(params) {

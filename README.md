@@ -23,18 +23,18 @@ This package will work on client and server.
 
 ### Fields detail:
 
-| Fields              | Description                                                | Default  | Required  |
-|---------------------|------------------------------------------------------------|----------|-----------|
-| payeeVPA            | VPA address from UPI payment account                       |          | Mandatory | pa
-| payeeName           | Merchant Name registered in UPI payment account            |          | Mandatory | pn
-| payeeMerchantCode   | Merchant Code from UPI payment account                     |          | Optional  | me
-| transactionId       | Unique transaction id for merchant's reference             |          | Optional  | tid
-| transactionRef      | Unique transaction id for merchant's reference             |          | Optional  | tr
-| transactionNote     | Note that will displayed in payment app during transaction |          | Optional  | tn
-| amount              | Amount                                                     |          | Optional  | am
-| minimumAmount       | Minimum amount that has to be transferred                  |          | Optional  | mam
-| currency            | Currency of amount                                         | INR      | Optional  | cu
-| transactionRefUrl   | URL for the order                                          |          | Optional  | url
+| Fields            | Description                                       | Required  |
+|-------------------|---------------------------------------------------|-----------|
+| payeeVPA          | VPA address from UPI payment account              | Mandatory |
+| payeeName         | Merchant Name registered in UPI payment account   | Mandatory |
+| payeeMerchantCode | Merchant Code from UPI payment account            | Optional  |
+| transactionId     | Unique transaction id for merchant's reference    | Optional  |
+| transactionRef    | Unique transaction id for merchant's reference    | Optional  |
+| transactionNote   | Note will appear in payment app while transaction | Optional  |
+| amount            | Amount                                            | Optional  |
+| minimumAmount     | Minimum amount that has to be transferred         | Optional  |
+| currency          | Currency of amount (default: INR)                 | Optional  |
+| transactionRefUrl | URL for the order                                 | Optional  |
 
 
 In table, fields requirement column is based on static QR, For dynamic QR you need to change more fields along with `payeeVPA` and `payeeName`.

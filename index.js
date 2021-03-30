@@ -1,12 +1,9 @@
 const QRCode = require("qrcode")
 
 function validateParams({ pa, pn }) {
-    if (!pa || !pn) {
-        return "Virtual Payee's Address/Payee's Name is compulsory"
-    } else if ((pa && pa.length < 5) || (pn && pn.length < 4)) {
-        return "Virtual Payee's Address/Payee's Name is too short."   
-    } else return false
-    // tr: transactionRef upto 35 digits
+    if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
+    if (pa?.length < 5 || pn?.length < 4) return "Virtual Payee's Address/Payee's Name is too short."   
+    return false
 }
 
 function buildUrl(params) {
@@ -15,9 +12,9 @@ function buildUrl(params) {
         qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&"
     if (qs.length > 0) url = url + qs
     return url
-  }
+}
 
-  export default function upiqr ({
+export default function upiqr ({
     payeeVPA: pa,
     payeeName: pn,
     payeeMerchantCode: me,
@@ -41,7 +38,7 @@ function buildUrl(params) {
         if (cu) intent = buildUrl.call(intent, { cu })
         if (me) intent = buildUrl.call(intent, { me })
         if (tid) intent = buildUrl.call(intent, { tid })
-        if (tr) intent = buildUrl.call(intent, { tr })
+        if (tr) intent = buildUrl.call(intent, { tr }) // // tr: transactionRef upto 35 digits
         if (tn) intent = buildUrl.call(intent, { tn })
         intent = intent.substring(0, intent.length-1)
 

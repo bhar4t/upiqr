@@ -53,6 +53,6 @@ function upiqr ({
     })
 }
 
-module.exports {
+module.exports = {
     upiqr
 }

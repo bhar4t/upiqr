@@ -15,7 +15,7 @@ function buildUrl(params) {
     return url
 }
 
-export default function upiqr ({
+function upiqr ({
     payeeVPA: pa,
     payeeName: pn,
     payeeMerchantCode: me,
@@ -51,4 +51,8 @@ export default function upiqr ({
             }
         )
     })
+}
+
+module.exports {
+    upiqr
 }

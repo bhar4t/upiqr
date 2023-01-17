@@ -4,15 +4,15 @@ This package will work on client and server.
 
 ```js
 
-  import { upiqr } from 'upiqr';
+  import { upiqr } from "upiqr";
 
   upiqr({
-    payeeVPA: 'john@upi',
-    payeeName: "JOHN DOE"
+    payeeVPA: "bhar4t@upi",
+    payeeName: "Bharat Sahu"
   })
   .then((upi) => {
     console.log(upi.qr);      // data:image/png;base64,eR0lGODP...
-    console.log(upi.intent);  // upi://pay?pa=john@upi&pn=JOHN DOE
+    console.log(upi.intent);  // upi://pay?pa=bhar4t@upi&pn=Bharat..
   })
   .catch(err => {
     console.log(err);

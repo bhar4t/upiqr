@@ -1,3 +1,10 @@
+[![npm package][npm-img]][npm-url]
+[![Build Status][build-img]][build-url]
+[![Downloads][downloads-img]][downloads-url]
+[![Issues][issues-img]][issues-url]
+[![Commitizen Friendly][commitizen-img]][commitizen-url]
+[![Semantic Release][semantic-release-img]][semantic-release-url]
+
 Generate NPCI's UPI QR code (BASE64) along with UPI intent link, By using it any payment is possible from UPI enabled apps.
 
 This package will work on client and server.
@@ -42,3 +49,20 @@ In table, fields requirement column is based on static QR, For dynamic QR you ne
 For a complete list of supported fields, refer to the [NPCI UPI Linking Specs](https://www.npci.org.in/PDF/npci/upi/circular/2017/Circular18_BankCompliances_to_enbaleUPIMerchantecosystem_0.pdf)
 
 Internally using `qrcode` for QR Generation.
+
+<!--- [![Code Coverage][codecov-img]][codecov-url] --->
+
+[build-img]:https://github.com/bhar4t/upiqr/actions/workflows/main.yml/badge.svg
+[build-url]:https://github.com/bhar4t/upiqr/actions/workflows/main.yml
+[downloads-img]:https://img.shields.io/npm/dt/upiqr
+[downloads-url]:https://www.npmtrends.com/upiqr
+[npm-img]:https://img.shields.io/npm/v/upiqr
+[npm-url]:https://www.npmjs.com/package/upiqr
+[issues-img]:https://img.shields.io/github/issues/bhar4t/upiqr
+[issues-url]:https://github.com/bhar4t/upiqr/issues
+[codecov-img]:https://codecov.io/gh/bhar4t/upiqr/branch/main/graph/badge.svg
+[codecov-url]:https://codecov.io/gh/bhar4t/upiqr
+[semantic-release-img]:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-release-url]:https://github.com/semantic-release/semantic-release
+[commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[commitizen-url]:http://commitizen.github.io/cz-cli/

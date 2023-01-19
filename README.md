@@ -7,6 +7,14 @@
 
 Generate NPCI's UPI QR code (BASE64) along with UPI intent link, By using it any payment is possible from UPI enabled apps.
 
+## Supports
+
+<div id="header" align="center">
+  <img src="https://raw.githubusercontent.com/bhar4t/bhar4t/master/public/img/upis.png" width="300"/>
+</div>
+
+<br/>
+
 This package will work on client and server.
 
 ```js

@@ -1,13 +1,35 @@
 const QRCode = require("qrcode")
 
-function validateParams({ pa, pn }) {
-    let error = false
-    if (!pa || !pn) error = "Virtual Payee's Address/Payee's Name is compulsory"
-    if (pa?.length < 5 || pn?.length < 4) error = "Virtual Payee's Address/Payee's Name is too short."   
+type ImageType = 'png' | 'jpeg'
+type Base64<imageType extends ImageType> = `data:image/${imageType};base64${string}`
+
+interface UPIIntentParams {
+    payeeVPA?: string;
+    payeeName?: string;
+    payeeMerchantCode?: string;
+    transactionId?: string;
+    transactionRef?: string;
+    transactionNote?: string;
+    amount?: string;
+    minimumAmount?: string;
+    currency?: string;
+    transactionRefUrl?: string;
+}
+
+interface UPIIntentResult {
+    qr: string;
+    intent: string;
+    error: string
+}
+
+function validateParams({ pa, pn }: {pa: string | undefined, pn: string | undefined }): string {
+    let error = ''
+    if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
+    if (pa?.length < 5 || pn?.length < 4) return "Virtual Payee's Address/Payee's Name is too short."   
     return error
 }
 
-function buildUrl(params) {
+function buildUrl(this: string, params: object) {
     let url = this, qs = ""
     for(let [key, value] of Object.entries(params)) 
         qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&"
@@ -26,7 +48,7 @@ function upiqr ({
     minimumAmount: mam,
     currency: cu,
     transactionRefUrl: url,
-}) {
+}: UPIIntentParams): Promise<UPIIntentResult | Error> {
     return new Promise((resolve, reject) => {
 
         let error = validateParams({ pa, pn })
@@ -39,20 +61,18 @@ function upiqr ({
         if (cu) intent = buildUrl.call(intent, { cu })
         if (me) intent = buildUrl.call(intent, { me })
         if (tid) intent = buildUrl.call(intent, { tid })
-        if (tr) intent = buildUrl.call(intent, { tr }) // // tr: transactionRef upto 35 digits
+        if (tr) intent = buildUrl.call(intent, { tr }) // tr: transactionRef upto 35 digits
         if (tn) intent = buildUrl.call(intent, { tn })
         intent = intent.substring(0, intent.length-1)
 
         QRCode.toDataURL(
             intent,
-            (err, qr) => {
+            (err: string, qr: Base64<'png'>) => {
               if (err) reject(new Error("Unable to generate UPI QR Code."))
-              resolve({ qr, intent })
+              resolve({ qr, intent, error: '' } as UPIIntentResult)
             }
         )
     })
 }
 
-module.exports = {
-    upiqr
-}
+exports.default = upiqr;

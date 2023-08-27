@@ -38,6 +38,7 @@ function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transaction
             intent = buildUrl.call(intent, { tr }); // tr: transactionRef upto 35 digits
         if (tn)
             intent = buildUrl.call(intent, { tn });
+        console.log(url);
         intent = intent.substring(0, intent.length - 1);
         QRCode.toDataURL(intent, (err, qr) => {
             if (err)

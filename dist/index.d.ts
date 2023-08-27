@@ -23,4 +23,4 @@ declare function validateParams({ pa, pn }: {
     pn: string | undefined;
 }): string;
 declare function buildUrl(this: string, params: object): string;
-declare function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, transactionRefUrl, }: UPIIntentParams): Promise<UPIIntentResult | Error>;
+declare function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, transactionRefUrl: url, }: UPIIntentParams): Promise<UPIIntentResult | Error>;

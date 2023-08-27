@@ -1,5 +1,5 @@
-const QRCode = require("qrcode")
-import { Base64, UPIIntentParams, UPIIntentResult } from "./types/upiqr"
+import QRCode from 'qrcode'
+import { UPIIntentParams, UPIIntentResult } from "./types/upiqr"
 
 export default function upiqr ({
     payeeVPA: pa,
@@ -28,12 +28,9 @@ export default function upiqr ({
         if (tn) intent = buildUrl.call(intent, { tn })
         intent = intent.substring(0, intent.length-1)
 
-        QRCode.toDataURL(
-            intent,
-            (err: string, qr: Base64<'png'>) => {
-              if (err) reject(new Error("Unable to generate UPI QR Code."))
-              resolve({ qr, intent } as UPIIntentResult)
-            }
-        )
+        QRCode
+            .toDataURL(intent)
+            .then((base64Data: string) => resolve({ qr: base64Data, intent } as UPIIntentResult))
+            .catch(err => reject(new Error("Unable to generate UPI QR Code.\n" + err)))
     })
 }

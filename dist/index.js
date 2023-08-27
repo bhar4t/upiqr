@@ -1,4 +1,4 @@
-const QRCode = require("qrcode");
+import QRCode from 'qrcode';
 export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }) {
     return new Promise((resolve, reject) => {
         let error = validateParams({ pa, pn });
@@ -22,10 +22,9 @@ export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: 
         if (tn)
             intent = buildUrl.call(intent, { tn });
         intent = intent.substring(0, intent.length - 1);
-        QRCode.toDataURL(intent, (err, qr) => {
-            if (err)
-                reject(new Error("Unable to generate UPI QR Code."));
-            resolve({ qr, intent });
-        });
+        QRCode
+            .toDataURL(intent)
+            .then((base64Data) => resolve({ qr: base64Data, intent }))
+            .catch(err => reject(new Error("Unable to generate UPI QR Code.\n" + err)));
     });
 }

@@ -19,7 +19,7 @@ This package will work on client and server.
 
 ```js
 
-  import { upiqr } from "upiqr";
+  import upiqr from "upiqr";
 
   upiqr({
     payeeVPA: "bhar4t@upi",

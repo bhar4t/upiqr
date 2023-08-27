@@ -1,22 +1,5 @@
-"use strict";
 const QRCode = require("qrcode");
-function validateParams({ pa, pn }) {
-    let error = '';
-    if (!pa || !pn)
-        return "Virtual Payee's Address/Payee's Name is compulsory";
-    if ((pa === null || pa === void 0 ? void 0 : pa.length) < 5 || (pn === null || pn === void 0 ? void 0 : pn.length) < 4)
-        return "Virtual Payee's Address/Payee's Name is too short.";
-    return error;
-}
-function buildUrl(params) {
-    let url = this, qs = "";
-    for (let [key, value] of Object.entries(params))
-        qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
-    if (qs.length > 0)
-        url = url + qs;
-    return url;
-}
-function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, transactionRefUrl: url, }) {
+export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }) {
     return new Promise((resolve, reject) => {
         let error = validateParams({ pa, pn });
         if (error)
@@ -38,13 +21,11 @@ function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transaction
             intent = buildUrl.call(intent, { tr }); // tr: transactionRef upto 35 digits
         if (tn)
             intent = buildUrl.call(intent, { tn });
-        console.log(url);
         intent = intent.substring(0, intent.length - 1);
         QRCode.toDataURL(intent, (err, qr) => {
             if (err)
                 reject(new Error("Unable to generate UPI QR Code."));
-            resolve({ qr, intent, error: '' });
+            resolve({ qr, intent });
         });
     });
 }
-exports.default = upiqr;

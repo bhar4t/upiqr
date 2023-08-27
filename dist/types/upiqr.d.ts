@@ -12,9 +12,8 @@ export interface UPIIntentParams {
     currency?: string;
     transactionRefUrl?: string;
 }
-interface QRResult {
+export interface QRResult {
     qr: string;
     intent: string;
 }
-export type UPIIntentResult = QRResult | Error;
 export {};

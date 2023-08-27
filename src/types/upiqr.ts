@@ -14,9 +14,7 @@ export interface UPIIntentParams {
     transactionRefUrl?: string; // Not in use, as of now
 }
 
-interface QRResult {
+export interface QRResult {
     qr: string;
     intent: string;
 }
-
-export type UPIIntentResult = QRResult | Error

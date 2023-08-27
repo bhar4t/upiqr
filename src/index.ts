@@ -1,5 +1,5 @@
 import QRCode from 'qrcode'
-import { UPIIntentParams, UPIIntentResult } from './types/upiqr'
+import { QRResult, UPIIntentParams } from './types/upiqr'
 
 function validateParams({ pa, pn }: {pa: string | undefined, pn: string | undefined }): string {
     let error = ''
@@ -26,7 +26,7 @@ export default function upiqr ({
     amount: am,
     minimumAmount: mam,
     currency: cu,
-}: UPIIntentParams): Promise<UPIIntentResult> {
+}: UPIIntentParams): Promise<QRResult> {
     return new Promise((resolve, reject) => {
 
         let error = validateParams({ pa, pn })
@@ -45,7 +45,7 @@ export default function upiqr ({
 
         QRCode
             .toDataURL(intent)
-            .then((base64Data: string) => resolve({ qr: base64Data, intent } as UPIIntentResult))
+            .then((base64Data: string) => resolve({ qr: base64Data, intent } as QRResult))
             .catch(err => reject(new Error("Unable to generate UPI QR Code.\n" + err)))
     })
 }

@@ -1,5 +1,6 @@
 import QRCode from 'qrcode'
-import { UPIIntentParams, UPIIntentResult } from "./types/upiqr"
+import { UPIIntentParams, UPIIntentResult } from './types/upiqr'
+import { buildUrl, validateParams } from './utils/helper'
 
 export default function upiqr ({
     payeeVPA: pa,

@@ -19,7 +19,7 @@ function buildUrl(this: string, params: object) {
 export default function upiqr ({
     payeeVPA: pa,
     payeeName: pn,
-    payeeMerchantCode: me,
+    payeeMerchantCode: mc,
     transactionId: tid,
     transactionRef: tr,
     transactionNote: tn,
@@ -37,7 +37,7 @@ export default function upiqr ({
         if (am) intent = buildUrl.call(intent, { am })
         if (mam) intent = buildUrl.call(intent, { mam })
         if (cu) intent = buildUrl.call(intent, { cu })
-        if (me) intent = buildUrl.call(intent, { me })
+        if (me) intent = buildUrl.call(intent, { mc })
         if (tid) intent = buildUrl.call(intent, { tid })
         if (tr) intent = buildUrl.call(intent, { tr }) // tr: transactionRef upto 35 digits
         if (tn) intent = buildUrl.call(intent, { tn })

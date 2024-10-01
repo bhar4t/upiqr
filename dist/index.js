@@ -1,11 +1,10 @@
 import QRCode from 'qrcode';
 function validateParams({ pa, pn }) {
-    let error = '';
     if (!pa || !pn)
         return "Virtual Payee's Address/Payee's Name is compulsory";
     if ((pa === null || pa === void 0 ? void 0 : pa.length) < 5 || (pn === null || pn === void 0 ? void 0 : pn.length) < 4)
         return "Virtual Payee's Address/Payee's Name is too short.";
-    return error;
+    return '';
 }
 function buildUrl(params) {
     let url = this, qs = "";
@@ -15,7 +14,7 @@ function buildUrl(params) {
         url = url + qs;
     return url;
 }
-export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: me, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }) {
+export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: mc, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }) {
     return new Promise((resolve, reject) => {
         let error = validateParams({ pa, pn });
         if (error)
@@ -29,8 +28,8 @@ export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: 
             intent = buildUrl.call(intent, { mam });
         if (cu)
             intent = buildUrl.call(intent, { cu });
-        if (me)
-            intent = buildUrl.call(intent, { me });
+        if (mc)
+            intent = buildUrl.call(intent, { mc });
         if (tid)
             intent = buildUrl.call(intent, { tid });
         if (tr)

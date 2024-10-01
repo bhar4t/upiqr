@@ -2,10 +2,9 @@ import QRCode from 'qrcode'
 import { QRResult, UPIIntentParams } from './types/upiqr'
 
 function validateParams({ pa, pn }: {pa: string | undefined, pn: string | undefined }): string {
-    let error = ''
     if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
     if (pa?.length < 5 || pn?.length < 4) return "Virtual Payee's Address/Payee's Name is too short."   
-    return error
+    return ''
 }
 
 function buildUrl(this: string, params: object) {

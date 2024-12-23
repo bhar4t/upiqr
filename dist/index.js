@@ -1,42 +1,29 @@
 import QRCode from 'qrcode';
 function validateParams({ pa, pn }) {
+    var _a, _b;
     if (!pa || !pn)
         return "Virtual Payee's Address/Payee's Name is compulsory";
-    if ((pa === null || pa === void 0 ? void 0 : pa.length) < 5 || (pn === null || pn === void 0 ? void 0 : pn.length) < 4)
+    if (((_a = pa === null || pa === void 0 ? void 0 : pa.length) !== null && _a !== void 0 ? _a : 0) < 5 || ((_b = pn === null || pn === void 0 ? void 0 : pn.length) !== null && _b !== void 0 ? _b : 0) < 4)
         return "Virtual Payee's Address/Payee's Name is too short.";
     return '';
 }
 function buildUrl(params) {
-    let url = this, qs = "";
-    for (let [key, value] of Object.entries(params))
-        qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
-    if (qs.length > 0)
-        url = url + qs;
-    return url;
+    let qs = "";
+    for (let [key, value] of Object.entries(params)) {
+        if (value)
+            qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
+    }
+    if (!qs.length)
+        throw new Error("No valid parameters found to build UPI intent.");
+    return "upi://pay?" + qs.slice(0, -1); // Remove trailing '&'
 }
 export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: mc, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }) {
     return new Promise((resolve, reject) => {
-        let error = validateParams({ pa, pn });
+        const params = { pa, pn, am, mam, cu, mc, tid, tr, tn };
+        let error = validateParams(params);
         if (error)
-            reject(new Error(error));
-        let intent = "upi://pay?";
-        if (pa)
-            intent = buildUrl.call(intent, { pa, pn });
-        if (am)
-            intent = buildUrl.call(intent, { am });
-        if (mam)
-            intent = buildUrl.call(intent, { mam });
-        if (cu)
-            intent = buildUrl.call(intent, { cu });
-        if (mc)
-            intent = buildUrl.call(intent, { mc });
-        if (tid)
-            intent = buildUrl.call(intent, { tid });
-        if (tr)
-            intent = buildUrl.call(intent, { tr }); // tr: transactionRef upto 35 digits
-        if (tn)
-            intent = buildUrl.call(intent, { tn });
-        intent = intent.substring(0, intent.length - 1);
+            return reject(new Error(error));
+        const intent = buildUrl(params);
         QRCode
             .toDataURL(intent)
             .then((base64Data) => resolve({ qr: base64Data, intent }))

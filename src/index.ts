@@ -1,18 +1,22 @@
 import QRCode from 'qrcode'
 import { QRResult, UPIIntentParams } from './types/upiqr'
 
-function validateParams({ pa, pn }: {pa: string | undefined, pn: string | undefined }): string {
+function validateParams({ pa, pn }: { pa: string, pn: string }): string {
     if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
-    if (pa?.length < 5 || pn?.length < 4) return "Virtual Payee's Address/Payee's Name is too short."   
+    if ((pa?.length ?? 0) < 5 || (pn?.length ?? 0) < 4) return "Virtual Payee's Address/Payee's Name is too short."
     return ''
 }
 
-function buildUrl(this: string, params: object) {
-    let url = this, qs = ""
-    for(let [key, value] of Object.entries(params)) 
-        qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&"
-    if (qs.length > 0) url = url + qs
-    return url
+function buildUrl(params: object) {
+    let qs = ""
+    for(let [key, value] of Object.entries(params)) {
+        if (value)
+            qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&"
+    }
+    if (!qs.length)
+        throw new Error("No valid parameters found to build UPI intent.")
+
+    return "upi://pay?" + qs.slice(0, -1) // Remove trailing '&'
 }
 
 export default function upiqr ({
@@ -27,20 +31,10 @@ export default function upiqr ({
     currency: cu,
 }: UPIIntentParams): Promise<QRResult> {
     return new Promise((resolve, reject) => {
-
-        let error = validateParams({ pa, pn })
-        if (error) reject(new Error(error))
-    
-        let intent = "upi://pay?"
-        if (pa) intent = buildUrl.call(intent, { pa, pn })
-        if (am) intent = buildUrl.call(intent, { am })
-        if (mam) intent = buildUrl.call(intent, { mam })
-        if (cu) intent = buildUrl.call(intent, { cu })
-        if (mc) intent = buildUrl.call(intent, { mc })
-        if (tid) intent = buildUrl.call(intent, { tid })
-        if (tr) intent = buildUrl.call(intent, { tr }) // tr: transactionRef upto 35 digits
-        if (tn) intent = buildUrl.call(intent, { tn })
-        intent = intent.substring(0, intent.length-1)
+        const params = { pa, pn, am, mam, cu, mc, tid, tr, tn }
+        let error = validateParams(params)
+        if (error) return reject(new Error(error))
+        const intent = buildUrl(params)
 
         QRCode
             .toDataURL(intent)

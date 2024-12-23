@@ -17,7 +17,7 @@ function buildUrl(params) {
         throw new Error("No valid parameters found to build UPI intent.");
     return "upi://pay?" + qs.slice(0, -1); // Remove trailing '&'
 }
-export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: mc, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }) {
+export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: mc, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }, qrOptions) {
     return new Promise((resolve, reject) => {
         const params = { pa, pn, am, mam, cu, mc, tid, tr, tn };
         let error = validateParams(params);
@@ -25,7 +25,7 @@ export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: 
             return reject(new Error(error));
         const intent = buildUrl(params);
         QRCode
-            .toDataURL(intent)
+            .toDataURL(intent, qrOptions)
             .then((base64Data) => resolve({ qr: base64Data, intent }))
             .catch(err => reject(new Error("Unable to generate UPI QR Code.\n" + err)));
     });

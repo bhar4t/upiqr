@@ -1,5 +1,5 @@
 import QRCode from 'qrcode'
-import { QRResult, UPIIntentParams } from './types/upiqr'
+import { QRResult, UPIIntentParams, Base64, ImageType } from './types/upiqr'
 
 function validateParams({ pa, pn }: { pa: string, pn: string }): string {
     if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
@@ -29,7 +29,7 @@ export default function upiqr ({
     amount: am,
     minimumAmount: mam,
     currency: cu,
-}: UPIIntentParams): Promise<QRResult> {
+}: UPIIntentParams, qrOptions?: QRCode.QRCodeToDataURLOptions): Promise<QRResult> {
     return new Promise((resolve, reject) => {
         const params = { pa, pn, am, mam, cu, mc, tid, tr, tn }
         let error = validateParams(params)
@@ -37,8 +37,8 @@ export default function upiqr ({
         const intent = buildUrl(params)
 
         QRCode
-            .toDataURL(intent)
-            .then((base64Data: string) => resolve({ qr: base64Data, intent } as QRResult))
+            .toDataURL(intent,qrOptions)
+            .then((base64Data: string) => resolve({ qr: base64Data as Base64<ImageType>, intent } as QRResult))
             .catch(err => reject(new Error("Unable to generate UPI QR Code.\n" + err)))
     })
 }

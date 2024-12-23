@@ -25,14 +25,11 @@ This package will work on client and server.
     payeeVPA: "bhar4t@upi",
     payeeName: "Bharat Sahu"
   })
-  .then((upi) => {
-    console.log(upi.qr);      // data:image/png;base64,eR0lGODP...
-    console.log(upi.intent);  // upi://pay?pa=bhar4t@upi&pn=Bharat..
+  .then(({ qr, intent  }) => {
+    console.log(qr);      // data:image/png;base64,eR0lGODP...
+    console.log(intent);  // upi://pay?pa=bhar4t@upi&pn=Bhar...
   })
-  .catch(err => {
-    console.log(err);
-  });
-
+  .catch(console.error)
 
 ```
 
@@ -54,9 +51,22 @@ This package will work on client and server.
 
 In table, fields requirement column is based on static QR, For dynamic QR you need to change more fields along with `payeeVPA` and `payeeName`.
 
-For a complete list of supported fields, refer to the [NPCI UPI Linking Specs](https://www.npci.org.in/PDF/npci/upi/circular/2017/Circular18_BankCompliances_to_enbaleUPIMerchantecosystem_0.pdf)
+For a complete list of supported fields, refer to the [NPCI UPI Linking Specs][upi-specs-url]
 
-Internally using `qrcode` for QR Generation.
+### Customization:
+
+Internally using `qrcode` for QR Generation. And, it accepts [second optional param object][qr-code-options] for cusomizing the QR code.
+
+```js
+  upiqr(intentFields, {
+    color: {
+      dark: '#000000',
+      light: '#FFFFFF'
+    }
+  })
+
+```
+
 
 <!--- [![Code Coverage][codecov-img]][codecov-url] --->
 
@@ -74,3 +84,5 @@ Internally using `qrcode` for QR Generation.
 [semantic-release-url]:https://github.com/semantic-release/semantic-release
 [commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
 [commitizen-url]:http://commitizen.github.io/cz-cli/
+[qr-code-options]:https://www.npmjs.com/package/qrcode#qr-code-options
+[upi-specs-url]:https://www.npci.org.in/PDF/npci/upi/circular/2017/Circular18_BankCompliances_to_enbaleUPIMerchantecosystem_0.pdf

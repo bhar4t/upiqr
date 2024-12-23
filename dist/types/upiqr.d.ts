@@ -1,5 +1,5 @@
-type ImageType = 'png' | 'jpeg';
-export type Base64<imageType extends ImageType> = `data:image/${imageType};base64${string}`;
+export type ImageType = 'png' | 'jpeg' | 'webp';
+export type Base64<imageType extends ImageType> = `data:image/${imageType};base64,${string}`;
 export interface UPIIntentParams {
     payeeVPA: string;
     payeeName: string;
@@ -13,7 +13,6 @@ export interface UPIIntentParams {
     transactionRefUrl?: string;
 }
 export interface QRResult {
-    qr: string;
+    qr: Base64<ImageType>;
     intent: string;
 }
-export {};

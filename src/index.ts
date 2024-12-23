@@ -13,8 +13,6 @@ function buildUrl(params: object) {
         if (value)
             qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&"
     }
-    if (!qs.length)
-        throw new Error("No valid parameters found to build UPI intent.")
 
     return "upi://pay?" + qs.slice(0, -1) // Remove trailing '&'
 }

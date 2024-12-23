@@ -13,8 +13,6 @@ function buildUrl(params) {
         if (value)
             qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
     }
-    if (!qs.length)
-        throw new Error("No valid parameters found to build UPI intent.");
     return "upi://pay?" + qs.slice(0, -1); // Remove trailing '&'
 }
 export default function upiqr({ payeeVPA: pa, payeeName: pn, payeeMerchantCode: mc, transactionId: tid, transactionRef: tr, transactionNote: tn, amount: am, minimumAmount: mam, currency: cu, }, qrOptions) {

@@ -4,7 +4,6 @@ package-lock.json
 .pnp.js
 /coverage
 /build
-/dist
 
 # Logs
 logs

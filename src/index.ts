@@ -2,8 +2,8 @@ import QRCode from 'qrcode'
 import { QRResult, UPIIntentParams, Base64, ImageType } from './types/upiqr'
 
 function validateParams({ pa, pn }: { pa: string, pn: string }): string {
-    if (!pa || !pn) return "Virtual Payee's Address/Payee's Name is compulsory"
-    if ((pa?.length ?? 0) < 5 || (pn?.length ?? 0) < 4) return "Virtual Payee's Address/Payee's Name is too short."
+    if (!pa || !pn) return "Virtual payee's address/name is compulsory"
+    if (pa.length < 5 || pn.length < 4) return "Virtual payee's address/name is too short."
     return ''
 }
 
@@ -14,7 +14,7 @@ function buildUrl(params: object) {
             qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&"
     }
 
-    return "upi://pay?" + qs.slice(0, -1) // Remove trailing '&'
+    return "upi://pay?" + qs.slice(0, -1)
 }
 
 export default function upiqr ({

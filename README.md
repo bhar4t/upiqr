@@ -67,6 +67,7 @@ Internally using `qrcode` for QR Generation. And, it accepts [second optional pa
 
 ```
 
+<iframe src="https://github.com/sponsors/bhar4t/button" title="Sponsor bhar4t" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
 
 <!--- [![Code Coverage][codecov-img]][codecov-url] --->
 

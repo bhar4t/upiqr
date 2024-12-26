@@ -15,6 +15,6 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org
       - run: npm install
-      - run: npm publish --access public --otp=814150
+      - run: npm publish --access public --otp=c59debd20c4fe6ee7312885217828587c6f24fe81386ba5f31ea30940bff9b3c
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

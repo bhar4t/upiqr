@@ -1,6 +1,6 @@
 {
   "name": "upiqr",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "description": "Generate NPCI's UPI QR code along with UPI intent link, By using it any payment is possible from UPI enabled apps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,8 +12,7 @@
     "package.json"
   ],
   "scripts": {
-    "minify": "jsmin -o dist/index.js dist/index.js",
-    "build": "tsc && npm run minify"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -39,7 +38,6 @@
   "devDependencies": {
     "@types/node": "^20.5.6",
     "@types/qrcode": "^1.5.1",
-    "jsmin": "^1.0.1",
     "typescript": "^5.2.2"
   }
 }

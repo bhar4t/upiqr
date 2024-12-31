@@ -29,6 +29,9 @@
     "upi qr code",
     "NPCI"
   ],
+  "publishConfig": {
+    "provenance": true
+  },
   "author": "Bharat Sahu",
   "license": "MIT",
   "funding": {

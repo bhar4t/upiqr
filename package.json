@@ -1,6 +1,6 @@
 {
   "name": "upiqr",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "description": "Generate NPCI's UPI QR code along with UPI intent link, By using it any payment is possible from UPI enabled apps.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,12 +19,15 @@
     "url": "https://github.com/bhar4t/upiqr"
   },
   "keywords": [
-    "UPI",
-    "NPCI",
-    "QR",
-    "CODE",
-    "Payment",
-    "Generate"
+    "upi",
+    "upiqr",
+    "qrcode",
+    "payment",
+    "accept payment",
+    "upi qr code generator",
+    "qr code generator",
+    "upi qr code",
+    "NPCI"
   ],
   "author": "Bharat Sahu",
   "license": "MIT",

@@ -8,6 +8,9 @@ on:
 jobs:
   publish-gpr:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

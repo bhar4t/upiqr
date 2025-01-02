@@ -35,18 +35,18 @@ This package will work on client and server.
 
 ### Fields detail:
 
-| Fields            | Description                                       | Required  |
-|-------------------|---------------------------------------------------|-----------|
-| payeeVPA          | VPA address from UPI payment account              | Mandatory |
-| payeeName         | Merchant Name registered in UPI payment account   | Mandatory |
-| payeeMerchantCode | Merchant Code from UPI payment account            | Optional  |
-| transactionId     | Unique transaction id for merchant's reference    | Optional  |
-| transactionRef    | Unique transaction id for merchant's reference    | Optional  |
-| transactionNote   | Note will appear in payment app while transaction | Optional  |
-| amount            | Amount                                            | Optional  |
-| minimumAmount     | Minimum amount that has to be transferred         | Optional  |
-| currency          | Currency of amount (default: INR)                 | Optional  |
-| transactionRefUrl | URL for the order                                 | Optional  |
+| Fields             | Description                                       | Required  |
+|--------------------|---------------------------------------------------|-----------|
+| `payeeVPA`         | UPI ID of the payee (e.g., `example@upi`).        | Yes       |
+| `payeeName`        | Registered name of the payee (e.g., `John Doe`).  | Yes       |
+| `payeeMerchantCode`| Merchant Code from UPI payment account            | No        |
+| `transactionId`    | Unique transaction id for merchant's reference    | No        |
+| `transactionRef`   | Unique transaction id for merchant's reference    | No        |
+| `transactionNote`  | Note for the payment (e.g., `Electricity Bill`).  | No        |
+| `amount`           | Amount                                            | No        |
+| `minimumAmount`    | Amount to be paid (e.g., `100.00` or `499`).      | No        |
+| `currency`         | Currency of amount (default: `INR`)               | No        |
+| `transactionRefUrl`| URL for the order                                 | No        |
 
 
 In table, fields requirement column is based on static QR, For dynamic QR you need to change more fields along with `payeeVPA` and `payeeName`.

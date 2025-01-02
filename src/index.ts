@@ -13,20 +13,6 @@ function validate({ pa, pn }: { pa: string, pn: string }): string {
 }
 
 /**
- * Builds the UPI intent URL from the given parameters.
- * @param {Object} params - The parameters object containing UPI intent fields.
- * @returns {string} - The constructed UPI intent URL.
- */
-function buildUrl(params: object): string {
-    let qs = ""
-    for (let [key, value] of Object.entries(params)) {
-        if (value)
-            qs += `${encodeURIComponent(key)}=${encodeURIComponent(value)}&`
-    }
-    return "upi://pay?" + qs.slice(0, -1) // Remove trailing '&'
-}
-
-/**
  * Generates a UPI QR code and intent URL.
  * @param {UPIIntentParams} params - The UPI intent parameters.
  * @param {QRCode.QRCodeToDataURLOptions} [qrOptions] - Optional QR code generation options.
@@ -45,11 +31,18 @@ export default function upiqr ({
 }: UPIIntentParams, qrOptions?: QRCode.QRCodeToDataURLOptions): Promise<QRResult> {
     const params = { pa, pn, am, mam, cu, mc, tid, tr, tn }
     const error = validate(params)
-
     if (error) return Promise.reject(new Error(error))
-
-    const intent = buildUrl(params)
-
+    
+    // IIFE: builds and returns the UPI intent URL by given params.
+    const intent = ((params: object): string => {
+        const urlParams = new URLSearchParams()
+        for (const [key, value] of Object.entries(params)) {
+            if (value)
+                urlParams.append(key, value as string)
+        }
+        return `upi://pay?${urlParams.toString()}`
+    })(params);
+    
     return new Promise((resolve, reject) => {
         QRCode
             .toDataURL(intent, qrOptions)

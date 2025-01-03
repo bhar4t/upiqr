@@ -35,11 +35,7 @@ export default function upiqr ({
     
     // IIFE: builds and returns the UPI intent URL by given params.
     const intent = ((params: object): string => {
-        const urlParams = new URLSearchParams()
-        for (const [key, value] of Object.entries(params)) {
-            if (value)
-                urlParams.append(key, value as string)
-        }
+        const urlParams = new URLSearchParams(Object.entries(params).filter(([_, value]) => value))
         return `upi://pay?${urlParams.toString()}`
     })(params);
     

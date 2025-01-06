@@ -25,9 +25,8 @@ This package will work on client and server.
     payeeVPA: "bhar4t@upi",
     payeeName: "Bharat Sahu"
   })
-  .then(({ qr, intent  }) => {
+  .then(({ qr }) => {
     console.log(qr)      // data:image/png;base64,eR0lGODP...
-    console.log(intent)  // upi://pay?pa=bhar4t@upi&pn=Bhar...
   })
   .catch(console.error)
 

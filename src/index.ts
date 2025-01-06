@@ -6,7 +6,7 @@ import { QRResult, UPIIntentParams, Base64, ImageType } from './types/upiqr'
  * @param {Object} params - The parameters object containing payeeVPA and payeeName.
  * @returns {string} - An error message if validation fails, otherwise an empty string.
  */
-function validate({ pa, pn }: { pa: string, pn: string }): string {
+function validate<T extends { pa: string, pn: string }>({ pa, pn }: T): string {
     if (!pa || !pn) return "Virtual payee's address/name is compulsory"
     if (pa.length < 5 || pn.length < 4) return "Virtual payee's address/name is too short."
     return ''
@@ -29,15 +29,11 @@ export default function upiqr ({
     minimumAmount: mam,
     currency: cu,
 }: UPIIntentParams, qrOptions?: QRCode.QRCodeToDataURLOptions): Promise<QRResult> {
-    const params = { pa, pn, am, mam, cu, mc, tid, tr, tn }
+    const params: any = Object.assign({ pa, pn }, Object.fromEntries(Object.entries({ am, mam, cu, mc, tid, tr, tn }).filter(([_, value]) => value)))
     const error = validate(params)
     if (error) return Promise.reject(new Error(error))
-    
-    // IIFE: builds and returns the UPI intent URL by given params.
-    const intent = ((params: object): string => {
-        const urlParams = new URLSearchParams(Object.entries(params).filter(([_, value]) => value))
-        return `upi://pay?${urlParams.toString()}`
-    })(params);
+
+    const intent = 'upi://pay?' + new URLSearchParams(params).toString()
     
     return new Promise((resolve, reject) => {
         QRCode

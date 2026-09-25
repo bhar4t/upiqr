@@ -46,5 +46,3 @@ export default async function upiqr ({
         throw new Error("Unable to generate UPI QR Code.\n" + err)
     }
 }
-
-upiqr({ payeeVPA: 'bhar4t@ybl', payeeName: 'Bharat Sahu' }).then(console.log).catch(console.error)

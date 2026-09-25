@@ -38,7 +38,7 @@ export default async function upiqr ({
     if (tr) params['tr'] = tr
     if (tn) params['tn'] = tn
 
-    const error = validate(params as any)
+    const error = validate({ pa, pn })
     if (error) throw new Error(error)
 
     const intent = 'upi://pay?' + new URLSearchParams(params).toString()

@@ -4,6 +4,7 @@
       "target": "es2015",
       "module": "es2015",
       "declaration": true,
+      "rootDir": "./src",
       "outDir": "./dist",
       "noEmit": false,
       "strict": true,

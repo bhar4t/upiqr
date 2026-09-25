@@ -30,9 +30,13 @@ export default async function upiqr ({
     currency: cu,
 }: UPIIntentParams, qrOptions?: QRCode.QRCodeToDataURLOptions): Promise<QRResult> {
     const params: Record<string, string> = { pa, pn }
-    for (const [key, value] of Object.entries({ am, mam, cu, mc, tid, tr, tn })) {
-        if (value) params[key] = value
-    }
+    if (am) params['am'] = am
+    if (mam) params['mam'] = mam
+    if (cu) params['cu'] = cu
+    if (mc) params['mc'] = mc
+    if (tid) params['tid'] = tid
+    if (tr) params['tr'] = tr
+    if (tn) params['tn'] = tn
 
     const error = validate(params as any)
     if (error) throw new Error(error)

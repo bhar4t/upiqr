@@ -7,6 +7,9 @@
 
 Generate NPCI's UPI QR code (BASE64) along with UPI intent link, By using it any payment is possible from UPI enabled apps.
 
+**Zero runtime dependencies.** QR generation is implemented from scratch (no `qrcode` package or
+any other npm dependency) - smaller install size and no third-party supply-chain risk to inherit.
+
 ## Supports
 
 <div id="header" align="center">
@@ -19,16 +22,28 @@ This package will work on client and server.
 
 ```js
 
-  import upiqr from "upiqr";
+  import { upiqrSync } from "upiqr";
 
-  upiqr({
+  const { qr } = upiqrSync({
     payeeVPA: "bhar4t@upi",
     payeeName: "Bharat Sahu"
   })
-  .then(({ qr }) => {
-    console.log(qr)      // data:image/png;base64,eR0lGODP...
-  })
-  .catch(console.error)
+
+  console.log(qr)      // data:image/png;base64,eR0lGODP...
+
+```
+
+`upiqrSync` is synchronous - no `Promise`/`await` needed. The previous default export (`import
+upiqr from "upiqr"`) still works exactly as before but is **deprecated** and logs a one-time
+`console.warn`; it will be removed in a future major version:
+
+```js
+
+  import upiqr from "upiqr"; // deprecated, use upiqrSync instead
+
+  upiqr({ payeeVPA: "bhar4t@upi", payeeName: "Bharat Sahu" })
+    .then(({ qr }) => console.log(qr))
+    .catch(console.error)
 
 ```
 
@@ -54,17 +69,27 @@ For a complete list of supported fields, refer to the [NPCI UPI Linking Specs][u
 
 ### Customization:
 
-Internally using `qrcode` for QR Generation. And, it accepts [second optional param object][qr-code-options] for cusomizing the QR code.
+QR generation is implemented from scratch with **zero runtime dependencies** (a dependency-free
+QR encoder plus PNG rendering built on the platform's native APIs - Node's built-in `zlib` on the
+server, the Canvas API in the browser). It accepts a second optional options object for customizing
+the QR code:
 
 ```js
-  upiqr(intentFields, {
+  upiqrSync(intentFields, {
+    errorCorrectionLevel: 'M', // 'L' | 'M' | 'Q' | 'H' (or 'low' | 'medium' | 'quartile' | 'high'), default 'M'
+    margin: 4,                 // quiet zone width in modules, default 4
+    scale: 4,                  // pixels per module, default 4
+    width: 300,                // forces an output width in pixels; takes precedence over `scale`
     color: {
-      dark: '#000000',
-      light: '#FFFFFF'
-    }
+      dark: '#000000ff',      // dark module color (hex, RGB or RGBA), default '#000000ff'
+      light: '#ffffffff',     // light module color (hex, RGB or RGBA), default '#ffffffff'
+    },
   })
 
 ```
+
+Note: only PNG output is produced (SVG/JPEG/WebP are not supported), and byte-mode QR versions 1-10
+are supported (comfortably covering typical UPI intent URLs).
 
 <!--- [![Code Coverage][codecov-img]][codecov-url] --->
 
@@ -82,5 +107,4 @@ Internally using `qrcode` for QR Generation. And, it accepts [second optional pa
 [semantic-release-url]:https://github.com/semantic-release/semantic-release
 [commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
 [commitizen-url]:http://commitizen.github.io/cz-cli/
-[qr-code-options]:https://www.npmjs.com/package/qrcode#qr-code-options
 [upi-specs-url]:https://www.npci.org.in/PDF/npci/upi/circular/2017/Circular18_BankCompliances_to_enbaleUPIMerchantecosystem_0.pdf

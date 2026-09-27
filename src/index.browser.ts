@@ -2,13 +2,14 @@ import { buildUPIIntent } from './qr/intent.js'
 import { encodeQRMatrix, normalizeErrorCorrectionLevel } from './qr/encoder.js'
 import { renderModulesToRGBA } from './qr/pixels.js'
 import { resolveRenderOptions } from './qr/options.js'
-import { encodePNG } from './qr/png.js'
+import { encodeCanvasPNG } from './qr/canvas.js'
 import { warnDeprecatedAsyncDefault } from './qr/deprecation.js'
-import { QRResult, UPIIntentParams, UpiqrRenderOptions, Base64 } from './types/upiqr.js'
+import { QRResult, UPIIntentParams, UpiqrRenderOptions } from './types/upiqr.js'
 
 /**
  * Generates a UPI QR code (PNG data URL) and intent URL. Synchronous - no Promise involved.
- * Node/server entry point - rendering uses a dependency-free PNG encoder built on Node's zlib.
+ * Browser entry point - rendering uses the native Canvas API (resolved via the package's
+ * `browser`/`exports` field, so bundlers pick this file instead of the Node entry point).
  * @param {UPIIntentParams} params - The UPI intent parameters.
  * @param {UpiqrRenderOptions} [qrOptions] - Optional QR code generation options.
  * @returns {QRResult} - The QR code and intent URL.
@@ -21,7 +22,7 @@ export function upiqrSync(params: UPIIntentParams, qrOptions?: UpiqrRenderOption
         const { matrix } = encodeQRMatrix(intent, ecc)
         const renderOptions = resolveRenderOptions(matrix.length, qrOptions)
         const image = renderModulesToRGBA(matrix, renderOptions)
-        const qr = `data:image/png;base64,${encodePNG(image).toString('base64')}` as Base64<'png'>
+        const qr = encodeCanvasPNG(image)
         return { qr, intent }
     } catch (err) {
         throw new Error("Unable to generate UPI QR Code.\n" + err)

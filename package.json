@@ -1,7 +1,7 @@
 {
   "name": "upiqr",
-  "version": "1.4.0",
-  "description": "Generate NPCI's UPI QR code along with UPI intent link, By using it any payment is possible from UPI enabled apps.",
+  "version": "1.4.1",
+  "description": "Zero-dependency UPI QR code (PNG) and intent link generator for NPCI-compliant payments - works in Node.js and the browser, written in TypeScript.",
   "homepage": "https://github.com/bhar4t/upiqr#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -27,7 +27,7 @@
     "clean": "rimraf dist",
     "minify": "jsmin -o dist/types/upiqr.d.ts dist/types/upiqr.d.ts && jsmin -o dist/index.d.ts dist/index.d.ts && jsmin -o dist/index.browser.d.ts dist/index.browser.d.ts && uglifyjs -o dist/index.js dist/index.js --mangle && uglifyjs -o dist/index.browser.js dist/index.browser.js --mangle",
     "build": "npm run clean && tsc && npm run minify",
-    "test": "tsx --test src/__tests__/encoder.test.ts src/__tests__/roundtrip.test.ts src/__tests__/index.test.ts src/__tests__/canvas.test.ts"
+    "test": "tsx --test src/__tests__/encoder.test.ts src/__tests__/roundtrip.test.ts src/__tests__/index.test.ts src/__tests__/canvas.test.ts src/__tests__/combinatorial.test.ts"
   },
   "repository": {
     "type": "git",
